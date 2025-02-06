@@ -13,12 +13,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Copper_coin.png" />
     <None Remove="Copper_coin_%28highres%29.png" />
-    <None Remove="Gold_coin.png" />
-    <None Remove="Gold_coin_%28highres%29.png" />
     <None Remove="img\Gold_coin.png" />
-    <None Remove="Silver_coin.png" />
     <None Remove="Silver_coin_%28highres%29.png" />
   </ItemGroup>
 
@@ -41,13 +37,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Copper_coin.png" />
-    <Resource Include="Gold_coin.png" />
-    <Resource Include="Gold_coin_(highres).png" />
-    <Resource Include="Silver_coin.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFUI"
+        xmlns:viewmodels="clr-namespace:Engine.ViewModels;assembly=Engine"
+        d:DataContext="{d:DesignInstance Type=viewmodels:AppSession}"
         mc:Ignorable="d"
         FontSize="11pt"
         Title="GW2TPBrowser" Height="450" Width="800">
@@ -40,7 +42,7 @@
         <StackPanel Grid.Row="2" Grid.Column="1" Margin="5,5,5,5" Orientation="Vertical">
             
             <!-- Item Image -->
-            <Image x:Name="imgItemImage" Width="50" Height="50" HorizontalAlignment="Left" Source="{Binding CurrentItem.Icon}"/>
+            <Image x:Name="imgItemImage" Width="50" Height="50" HorizontalAlignment="Left" Source="{Binding CurrentItem.ItemStats.Icon}"/>
 
             <!-- Item Name -->
             <TextBlock x:Name="txtItemName" FontWeight="Bold" FontSize="20"/>

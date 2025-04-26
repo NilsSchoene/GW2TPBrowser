@@ -83,7 +83,7 @@ namespace Engine.ViewModels
         {
             await GetItemsFromAPIAsync();
             await SaveItemsToFileAsync();
-            GetItemsFromFile();
+            await GetItemsFromFile();
         }
 
         private async Task GetItemsFromAPIAsync()

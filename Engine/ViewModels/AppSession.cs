@@ -2,6 +2,7 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -24,7 +25,13 @@ namespace Engine.ViewModels
         private List<GW2TPItem> _itemList;
         private List<GW2TPItem> _searchResults;
 
-        public List<GW2TPItem> ItemList { get; set; } = new List<GW2TPItem>();
+        public List<GW2TPItem> ItemList
+        {
+            get { return _itemList; }
+            set { _itemList = value;
+                OnPropertyChanged();
+            }
+        }
         public List<GW2TPItem> SearchResults { get; set; } = new List<GW2TPItem>();
         public string SearchText { get; set; } = string.Empty;
         public GW2TPItem CurrentItem { get; set; }
@@ -35,8 +42,8 @@ namespace Engine.ViewModels
         public AppSession()
         {
             _combinedPath = Path.Combine(_directoryPath, _filePath);
+            ItemList = new List<GW2TPItem>();
             InitializeApp();
-            
         }
 
         private async void InitializeApp()
@@ -45,6 +52,7 @@ namespace Engine.ViewModels
             if (File.Exists(_combinedPath))
             {
                 RaiseMessage($"File found at {_combinedPath}.");
+                Debug.WriteLine($"File found at {_combinedPath}.");
                 await GetItemsFromFile();
             }
             else

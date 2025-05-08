@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -22,18 +23,19 @@ namespace Engine.ViewModels
         private readonly string _filePath = @"ItemData.json";
         private string _combinedPath = string.Empty;
 
-        private List<GW2TPItem> _itemList;
-        private List<GW2TPItem> _searchResults;
+        private ObservableCollection<GW2TPItem> _searchResults;
 
-        public List<GW2TPItem> ItemList
+        public List<GW2TPItem> ItemList { get; set; } = new List<GW2TPItem>();
+        public ObservableCollection<GW2TPItem> SearchResults
         {
-            get { return _itemList; }
-            set { _itemList = value;
+            get { return _searchResults; }
+            set
+            {
+                _searchResults = value;
                 OnPropertyChanged();
             }
         }
-        public List<GW2TPItem> SearchResults { get; set; } = new List<GW2TPItem>();
-        public string SearchText { get; set; } = string.Empty;
+        public string SearchText { get; set; } = "";
         public GW2TPItem CurrentItem { get; set; }
         public bool IsRefreshing { get; set; } = false;
 
@@ -42,7 +44,7 @@ namespace Engine.ViewModels
         public AppSession()
         {
             _combinedPath = Path.Combine(_directoryPath, _filePath);
-            ItemList = new List<GW2TPItem>();
+            SearchResults = new ObservableCollection<GW2TPItem>();
             InitializeApp();
         }
 
@@ -79,6 +81,7 @@ namespace Engine.ViewModels
                 ItemList = JsonSerializer.Deserialize<List<GW2TPItem>>(json) ?? new List<GW2TPItem>();
                 CurrentItem = ItemList.FirstOrDefault();
                 RaiseMessage($"Loaded {ItemList.Count} items from file. Current Item: {CurrentItem.Name}");
+                SearchItem("");
             }
             else
             {
@@ -104,9 +107,9 @@ namespace Engine.ViewModels
             // For now, we will just simulate it with a new list of items
             ItemList = new List<GW2TPItem>
             {
-                new GW2TPItem(1, "Item1"),
-                new GW2TPItem(2, "Item2"),
-                new GW2TPItem(3, "Item3")
+                new GW2TPItem(24, "Sealed Package of Snowballs"),
+                new GW2TPItem(68, "Mighty Country Coat"),
+                new GW2TPItem(69, "Mighty Country Coat")
             };
             IsRefreshing = false;
             RaiseMessage("Database refreshed.");
@@ -114,9 +117,22 @@ namespace Engine.ViewModels
 
         private async Task SaveItemsToFileAsync()
         {
-            string json = JsonSerializer.Serialize(ItemList);
+            string json = JsonSerializer.Serialize(ItemList, new JsonSerializerOptions() { WriteIndented = true });
             await File.WriteAllTextAsync(_combinedPath, json);
             RaiseMessage("Items saved to file.");
+        }
+
+        public void SearchItem(string searchText)
+        {
+            SearchResults.Clear();
+            foreach (GW2TPItem item in ItemList)
+            {
+                if (item.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                {
+                    SearchResults.Add(item);
+                    RaiseMessage($"Found {SearchResults.Count} items");
+                }
+            }
         }
 
         private void RaiseMessage(string message)

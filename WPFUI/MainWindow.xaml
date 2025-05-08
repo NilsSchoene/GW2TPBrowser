@@ -33,7 +33,7 @@
         <Button x:Name="btnRefreshData" Grid.Row="1" Width="120" HorizontalAlignment="Center" VerticalAlignment="Center" Click="OnClick_RefreshDatabase">Refresh Database</Button>
         
         <!-- Item List -->
-        <ListBox x:Name="lstItems" Grid.Column="0" Grid.Row="2" SelectionChanged="OnSelect_ChangeItem" Margin="5,5,5,5" ItemsSource="{Binding ItemList}">
+        <ListBox x:Name="lstItems" Grid.Column="0" Grid.Row="2" SelectionChanged="OnSelect_ChangeItem" Margin="5,5,5,5" ItemsSource="{Binding SearchResults}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" FontSize="16" Margin="5,5,5,5"/>

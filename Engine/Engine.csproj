@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\ItemData.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Data\ItemData.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Images\Copper_coin.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

@@ -31,7 +31,7 @@ namespace WPFUI
 
         private void OnChange_SearchItem(object sender, TextChangedEventArgs e)
         {
-            
+            _appSession.SearchItem(txtSearch.Text);
         }
 
         private void OnClick_RefreshDatabase(object sender, RoutedEventArgs e)

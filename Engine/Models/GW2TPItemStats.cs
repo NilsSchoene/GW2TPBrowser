@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class GW2TPItemStats
+    public class GW2TPItemStats : BaseNotificationClass
     {
         public string name { get; set; }
         public string description { get; set; }

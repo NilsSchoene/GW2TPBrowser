@@ -8,21 +8,21 @@ namespace Engine.Models
 {
     public class GW2TPItemPrice
     {
-        public int Id { get; set; }
-        public bool Whitelisted { get; set; }
-        public Buys Buys { get; set; }
-        public Sells Sells { get; set; }
+        public int id { get; set; }
+        public bool whitelisted { get; set; }
+        public Buys buys { get; set; }
+        public Sells sells { get; set; }
     }
 
     public class Buys
     {
-        public int Quantity { get; set; }
-        public int Unit_price { get; set; }
+        public int quantity { get; set; }
+        public int unit_price { get; set; }
     }
 
     public class Sells
     {
-        public int Quantity { get; set; }
-        public int Unit_price { get; set; }
+        public int quantity { get; set; }
+        public int unit_price { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Engine.EventArgs;
 using Engine.ViewModels;
+using Engine.Models;
 
 namespace WPFUI
 {
@@ -41,7 +42,7 @@ namespace WPFUI
 
         private void OnSelect_ChangeItem(object sender, SelectionChangedEventArgs e)
         {
-            
+            _appSession.SelectItem((GW2TPItem)lstItems.SelectedItem);
         }
 
         private void OnMessageRaised(object sender, MessageEventArgs e)

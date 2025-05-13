@@ -26,6 +26,7 @@ namespace Engine.ViewModels
         private static readonly HttpClient _httpClient = new HttpClient();
 
         private ObservableCollection<GW2TPItem> _searchResults;
+        private GW2TPItem _currentItem;
 
         public List<GW2TPItem> ItemList { get; set; } = new List<GW2TPItem>();
         public List<int> ItemIds { get; set; } = new List<int>();
@@ -38,9 +39,19 @@ namespace Engine.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string SearchText { get; set; } = "";
-        public GW2TPItem CurrentItem { get; set; }
+
+        public GW2TPItem CurrentItem
+        {
+            get { return _currentItem; }
+            set
+            {
+                _currentItem = value;
+                OnPropertyChanged();
+            }
+        }
         public bool IsRefreshing { get; set; } = false;
+
+        public string GoldIconPath = "pack://application:,,,/Engine;component/Images/Gold_coin.png";
 
         #endregion
 
@@ -82,8 +93,6 @@ namespace Engine.ViewModels
                     return;
                 }
                 ItemList = JsonSerializer.Deserialize<List<GW2TPItem>>(json) ?? new List<GW2TPItem>();
-                CurrentItem = ItemList.FirstOrDefault();
-                RaiseMessage($"Loaded {ItemList.Count} items from file. Current Item: {CurrentItem.Name}");
                 SearchItem("");
             }
             else

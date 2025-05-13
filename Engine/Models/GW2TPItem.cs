@@ -8,16 +8,88 @@ using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class GW2TPItem
+    public class GW2TPItem : BaseNotificationClass
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        private static readonly HttpClient _httpClient = new HttpClient();
+
+        private int _id;
+        private string _name;
+        private GW2TPItemStats? _itemStats;
+        private GW2TPItemPrice? _itemPrice;
+        private GW2Price? _vendorPrice;
+        private GW2Price? _buyPrice;
+        private GW2Price? _sellPrice;
+
+        public int Id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
 
         [JsonIgnore]
-        public GW2TPItemStats? ItemStats { get; set; }
+        public GW2TPItemStats? ItemStats
+        {
+            get { return _itemStats; }
+            set
+            {
+                _itemStats = value;
+                OnPropertyChanged();
+            }
+        }
         [JsonIgnore]
-        public GW2TPItemPrice? ItemPrice { get; set; }
-        
+        public GW2TPItemPrice? ItemPrice
+        {
+            get { return _itemPrice; }
+            set
+            {
+                _itemPrice = value;
+                OnPropertyChanged();
+            }
+        }
+        [JsonIgnore]
+        public GW2Price? VendorPrice
+        {
+            get { return _vendorPrice; }
+            set
+            {
+                _vendorPrice = value;
+                OnPropertyChanged();
+            }
+        }
+        [JsonIgnore]
+        public GW2Price? BuyPrice
+        {
+            get { return _buyPrice; }
+            set
+            {
+                _buyPrice = value;
+                OnPropertyChanged();
+            }
+        }
+        [JsonIgnore]
+        public GW2Price? SellPrice
+        {
+            get { return _sellPrice; }
+            set
+            {
+                _sellPrice = value;
+                OnPropertyChanged();
+            }
+        }
+
         public GW2TPItem(int id, string name)
         {
             Id = id;
@@ -26,19 +98,22 @@ namespace Engine.Models
 
         public async Task GetItemStats()
         {
-            using (HttpClient client = new HttpClient())
+            string response = await _httpClient.GetStringAsync($"https://api.guildwars2.com/v2/items/{Id}");
+            ItemStats = JsonSerializer.Deserialize<GW2TPItemStats>(response);
+            if (ItemStats != null)
             {
-                string response = await client.GetStringAsync($"https://api.guildwars2.com/v2/items/{Id}");
-                ItemStats = JsonSerializer.Deserialize<GW2TPItemStats>(response);
+                VendorPrice = new GW2Price(ItemStats.vendor_value);
             }
         }
 
         public async Task GetItemPrice()
         {
-            using (HttpClient client = new HttpClient())
+            string response = await _httpClient.GetStringAsync($"https://api.guildwars2.com/v2/commerce/prices/{Id}");
+            ItemPrice = JsonSerializer.Deserialize<GW2TPItemPrice>(response);
+            if (ItemPrice != null)
             {
-                string response = await client.GetStringAsync($"https://api.guildwars2.com/v2/commerce/prices/{Id}");
-                ItemPrice = JsonSerializer.Deserialize<GW2TPItemPrice>(response);
+                BuyPrice = new GW2Price(ItemPrice.buys.unit_price);
+                SellPrice = new GW2Price(ItemPrice.sells.unit_price);
             }
         }
     }

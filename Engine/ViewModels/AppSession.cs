@@ -104,11 +104,8 @@ namespace Engine.ViewModels
         {
             IsRefreshing = true;
             ItemList.Clear();
+            SearchResults.Clear();
             RaiseMessage("Refreshing database...");
-            // Simulate a delay for the API call
-            await Task.Delay(2000);
-            // Here you would normally call your API and get the data
-            // For now, we will just simulate it with a new list of items
             await GetItemIdsAsync();
             await GetItemNamesAsync();
             IsRefreshing = false;
@@ -118,12 +115,8 @@ namespace Engine.ViewModels
         private async Task GetItemIdsAsync()
         {
             string response = await _httpClient.GetStringAsync("https://api.guildwars2.com/v2/commerce/prices");
-            // Simulate a delay for the API call
-            await Task.Delay(2000);
-            // Here you would normally call your API and get the data
-            // For now, we will just simulate it with a new list of item IDs
             ItemIds = JsonSerializer.Deserialize<List<int>>(response) ?? new List<int>();
-            RaiseMessage($"Loaded {ItemIds.Count} item IDs from API.");
+            RaiseMessage($"Loading {ItemIds.Count} item IDs from API. Adding to database...");
         }
 
         private async Task GetItemNamesAsync()
@@ -138,6 +131,7 @@ namespace Engine.ViewModels
         {
             if (id >= ItemIds.Count)
             {
+
                 return;
             }
             string requestString = $"{ItemIds[id]}";
@@ -151,7 +145,6 @@ namespace Engine.ViewModels
             }
 
             string response = await _httpClient.GetStringAsync($"https://api.guildwars2.com/v2/items?ids={requestString}");
-            Debug.WriteLine($"{response}");
 
             List<GW2TPItemStats> items = JsonSerializer.Deserialize<List<GW2TPItemStats>>(response) ?? new List<GW2TPItemStats>();
             foreach (GW2TPItemStats itemStats in items)
@@ -160,6 +153,7 @@ namespace Engine.ViewModels
                 {
                     GW2TPItem item = new GW2TPItem(itemStats.id, itemStats.name);
                     ItemList.Add(item);
+                    RaiseMessage($"Added {ItemList.Count}/{ItemIds.Count} items to database. Please wait...");
                 }
             }
         }
@@ -186,6 +180,16 @@ namespace Engine.ViewModels
                     RaiseMessage($"No items found");
                 }
 
+            }
+        }
+
+        public async void SelectItem(GW2TPItem item)
+        {
+            if (item != null)
+            {
+                CurrentItem = item;
+                await CurrentItem.GetItemStats();
+                await CurrentItem.GetItemPrice();
             }
         }
 

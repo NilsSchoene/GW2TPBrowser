@@ -17,7 +17,7 @@ namespace Engine.Models
         public GW2TPItemStats? ItemStats { get; set; }
         [JsonIgnore]
         public GW2TPItemPrice? ItemPrice { get; set; }
-
+        
         public GW2TPItem(int id, string name)
         {
             Id = id;

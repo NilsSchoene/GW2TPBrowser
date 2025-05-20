@@ -6,12 +6,19 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<ApplicationIcon>Images\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Images\copper.png" />
     <None Remove="Images\gold.png" />
+    <None Remove="Images\icon.ico" />
     <None Remove="Images\silver.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Images\icon.ico" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -21,6 +28,7 @@
 	<ItemGroup>
 	  <Resource Include="Images\copper.png" />
 	  <Resource Include="Images\gold.png" />
+	  <Resource Include="Images\icon.ico" />
 	  <Resource Include="Images\silver.png" />
 	</ItemGroup>
 

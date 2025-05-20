@@ -8,8 +8,20 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\copper.png" />
+    <None Remove="Images\gold.png" />
+    <None Remove="Images\silver.png" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\Engine\Engine.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Images\copper.png" />
+	  <Resource Include="Images\gold.png" />
+	  <Resource Include="Images\silver.png" />
 	</ItemGroup>
 
 </Project>

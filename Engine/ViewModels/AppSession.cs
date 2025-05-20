@@ -51,8 +51,6 @@ namespace Engine.ViewModels
         }
         public bool IsRefreshing { get; set; } = false;
 
-        public string GoldIconPath = "pack://application:,,,/Engine;component/Images/Gold_coin.png";
-
         #endregion
 
         public AppSession()
@@ -98,7 +96,6 @@ namespace Engine.ViewModels
             else
             {
                 RaiseMessage($"File not found at {_combinedPath}.");
-                //File.Create(_combinedPath).Close();
             }
         }
 

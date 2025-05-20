@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GW2TPBrowser", "GW2TPBrowser.csproj", "{28D179AC-8D93-426E-AAF0-E22A7FF971FC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{7B86E47E-75B0-42D6-B46A-E9324091E8C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFUI", "WPFUI\WPFUI.csproj", "{74A5DE0F-E21B-4EE0-9930-54B21D7FF76E}"
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{28D179AC-8D93-426E-AAF0-E22A7FF971FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28D179AC-8D93-426E-AAF0-E22A7FF971FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28D179AC-8D93-426E-AAF0-E22A7FF971FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28D179AC-8D93-426E-AAF0-E22A7FF971FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B86E47E-75B0-42D6-B46A-E9324091E8C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B86E47E-75B0-42D6-B46A-E9324091E8C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B86E47E-75B0-42D6-B46A-E9324091E8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GW2TPBrowser
+namespace Engine.Models
 {
-
-    public class GW2TPPrices
+    public class GW2TPItemPrice
     {
         public int id { get; set; }
         public bool whitelisted { get; set; }

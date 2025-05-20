@@ -65,13 +65,14 @@ namespace Engine.ViewModels
             await Task.Delay(1000); // Simulate some initialization delay
             if (File.Exists(_combinedPath))
             {
-                RaiseMessage($"File found at {_combinedPath}.");
+                RaiseMessage($"File found.");
                 Debug.WriteLine($"File found at {_combinedPath}.");
                 await GetItemsFromFile();
             }
             else
             {
-                RaiseMessage($"File not found at {_combinedPath}. Creating new file.");
+                RaiseMessage($"File not found. Creating new file. Refresh database.");
+                Debug.WriteLine($"File not found at {_combinedPath}.");
                 File.Create(_combinedPath).Close();
             }
         }
@@ -87,7 +88,7 @@ namespace Engine.ViewModels
                 string json = await File.ReadAllTextAsync(_combinedPath);
                 if (string.IsNullOrEmpty(json))
                 {
-                    RaiseMessage("File is empty. Refreash database.");
+                    RaiseMessage("File is empty. Refresh database.");
                     return;
                 }
                 ItemList = JsonSerializer.Deserialize<List<GW2TPItem>>(json) ?? new List<GW2TPItem>();
@@ -95,7 +96,7 @@ namespace Engine.ViewModels
             }
             else
             {
-                RaiseMessage($"File not found at {_combinedPath}.");
+                RaiseMessage($"File not found.");
             }
         }
 

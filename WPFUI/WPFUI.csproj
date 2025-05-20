@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	<ApplicationIcon>Images\icon.ico</ApplicationIcon>
+	<AssemblyName>GW2TPBrowser</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
